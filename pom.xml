@@ -58,6 +58,13 @@
 			</plugin>
 		</plugins>
 		<finalName>devops-integration</finalName>
+		<plugins>
+                    <plugin>
+                        <groupId>org.cyclonedx</groupId>
+                        <artifactId>cyclonedx-maven-plugin</artifactId>
+                        <version>2.7.3</version>
+                    </plugin>
+                </plugins>
 	</build>
 
 </project>
