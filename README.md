@@ -1,1 +1,2 @@
-# devops-automation
+# DevOps-Automation
+## This [devops-automation](https://github.com/Java-Techie-jt/devops-automation) repository contains scripts and tools for automating DevOps tasks on Power Systems. You can use these scripts to create and manage cloud resources, such as virtual machines, networks, storage, etc. You can also use these scripts to deploy and configure sample applications on top of the cloud infrastructure. These scripts are examples of how to use various automation tools and frameworks, such as Terraform, Ansible, Chef, Puppet, etc., to perform DevOps on Power Systems.
