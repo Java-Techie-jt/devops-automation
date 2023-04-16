@@ -1,1 +1,1 @@
-# devops-automation
+# CI/CD pipeline project
