@@ -26,10 +26,11 @@ kind: Service
 metadata: 
   name: springboot-k8ssvc
 spec:
+  type: LoadBalancer
   selector:
     app: spring-boot-k8s
   ports:
     - protocol: "TCP"
       port: 8080 
       targetPort: 8080 
-  type: NodePort 
+  
