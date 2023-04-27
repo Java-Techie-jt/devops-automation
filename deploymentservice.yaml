@@ -17,7 +17,7 @@ spec:
           image: ashishtale/myrepo # Image that will be used to containers in the cluster
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080 # The port that the container is running on in the cluster
+            - containerPort: 8085 # The port that the container is running on in the cluster
 
 
 ---
