@@ -31,6 +31,6 @@ spec:
     app: spring-boot-k8s
   ports:
     - protocol: "TCP"
-      port: 8080 
-      targetPort: 8080 
+      port: 80
+      targetPort: 8085 
   
