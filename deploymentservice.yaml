@@ -26,10 +26,10 @@ kind: Service # Kubernetes resource kind we are creating
 metadata: # Metadata of the resource kind we are creating
   name: springboot-k8ssvc
 spec:
-  selector:
-    app: spring-boot-k8s
+  type: NodePort
+  selector: 
+       app: spring-boot-k8s
   ports:
-    - protocol: "TCP"
-      port: 8080 # The port that the service is running on in the cluster
+    - NodePort: 32222
+      port: 8080
       targetPort: 8080 # The port exposed by the service
-  type: NodePort # type of the service.
