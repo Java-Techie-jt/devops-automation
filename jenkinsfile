@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+    environment {
+        PATH = '$PATH:C:\\Users\\Admin\\Downloads\\apache-maven-3.9.2-bin\\apache-maven-3.9.2'
+    }
+    stages {
+        stage('Maven Build') {
+            steps {
+                checkout scm
+                bat 'mvn clean install -Dmaven.version=3.9.2'
+            }
+        }
+    }
+}
+
