@@ -24,7 +24,7 @@ pipeline {
                    sh 'docker login -u javatechie -p ${dockerhubpwd}'
 
 }
-                   sh 'docker push javatechie/devops-integration'
+                  sh 'docker push javatechie/devops-integration'
                 }
             }
         }
