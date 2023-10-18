@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Maven and Depedency checker
 
 on:
   push:
@@ -29,6 +29,23 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      
+    - name: Download OWASP Dependency-Check
+      run: |
+       wget -q -O dependency-check-8.4.0-release.zip  https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip
+       ls -l
+       unzip -qq dependency-check-8.4.0-release.zip   
+
+    - name: Run OWASP Dependency-Check
+      run: ./dependency-check/bin/dependency-check.sh --scan ./ --format HTML --project "Dependencychecker_DevOpsTest" --out ./report   
+   
+    - name: Upload OWASP Dependency-Check Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: dependency-check-report
+        path: ./report
+
+
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
