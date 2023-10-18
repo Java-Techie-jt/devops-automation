@@ -49,6 +49,8 @@ jobs:
       run: |
        wget -q -O findsecbugs-cli-1.12.0.zip https://github.com/find-sec-bugs/find-sec-bugs/releases/download/version-1.12.0/findsecbugs-cli-1.12.0.zip 
        unzip -qq findsecbugs-cli-1.12.0.zip
+       ls -l
+       chmod 755 findsecbugs.sh 
 
     - name: Run FindSecBugs
       run: ./findsecbugs.sh -progress -output findsecbugs-results.html -html -jvmArgs -Xmx2G -Duser.language=en target/*.jar
