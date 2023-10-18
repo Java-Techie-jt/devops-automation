@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Maven and Depedency checker
+name: Maven and SCA_SAST scan with DC and FindSecBug
 
 on:
   push:
@@ -15,7 +15,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  BuildWithGitHubActions:
 
     runs-on: ubuntu-latest
 
@@ -45,7 +45,23 @@ jobs:
         name: dependency-check-report
         path: ./report
 
+    - name: Download FindSecBugs   
+      run: |
+       wget -q -O findsecbugs-cli-1.12.0.zip https://github.com/find-sec-bugs/find-sec-bugs/releases/download/version-1.12.0/findsecbugs-cli-1.12.0.zip 
+       unzip -qq findsecbugs-cli-1.12.0.zip
+       chmod 755 findsecbugs.sh 
+       chmod +x findsecbugs.sh
+       ls -l
+    
 
+    - name: Run FindSecBugs
+      run: ./findsecbugs.sh -progress -output findsecbugs-results.html -html target/*.jar
+
+    - name: Upload FindSecBugs Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: findsecbugs-report
+        path: findsecbugs-results.html
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
