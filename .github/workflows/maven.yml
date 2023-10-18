@@ -55,7 +55,7 @@ jobs:
     
 
     - name: Run FindSecBugs
-      run: ./findsecbugs.sh -progress -output findsecbugs-results.html -html -Duser.language=en target/*.jar
+      run: ./findsecbugs.sh -progress -output findsecbugs-results.html -html target/*.jar
 
     - name: Upload FindSecBugs Report
       uses: actions/upload-artifact@v2
