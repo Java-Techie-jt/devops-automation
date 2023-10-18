@@ -52,7 +52,7 @@ jobs:
        chmod 755 findsecbugs.sh 
        chmod +x findsecbugs.sh
        ls -l
-       ./findsecbugs.sh -help
+    
 
     - name: Run FindSecBugs
       run: ./findsecbugs.sh -progress -output findsecbugs-results.html -html -Duser.language=en target/*.jar
