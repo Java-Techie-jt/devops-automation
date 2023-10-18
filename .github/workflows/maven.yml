@@ -31,7 +31,10 @@ jobs:
       run: mvn -B package --file pom.xml
       
     - name: Download OWASP Dependency-Check
-      run: curl -O https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip && unzip -qq dependency-check-8.4.0-release.zip   
+      run: |
+       wget -q -O dependency-check-8.4.0-release.zip  https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip
+       ls -l
+       unzip -qq dependency-check-8.4.0-release.zip   
 
     - name: Run OWASP Dependency-Check
       run: ./dependency-check/bin/dependency-check.sh --scan ./ --format HTML --project "Dependencychecker_DevOpsTest" --out ./report   
