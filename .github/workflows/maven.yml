@@ -49,11 +49,13 @@ jobs:
       run: |
        wget -q -O findsecbugs-cli-1.12.0.zip https://github.com/find-sec-bugs/find-sec-bugs/releases/download/version-1.12.0/findsecbugs-cli-1.12.0.zip 
        unzip -qq findsecbugs-cli-1.12.0.zip
-       ls -l
        chmod 755 findsecbugs.sh 
+       chmod +x findsecbugs.sh
+       ls -l
+       ./findsecbugs.sh -help
 
     - name: Run FindSecBugs
-      run: ./findsecbugs.sh -progress -output findsecbugs-results.html -html -jvmArgs -Xmx2G -Duser.language=en target/*.jar
+      run: ./findsecbugs.sh -progress -output findsecbugs-results.html -html -Duser.language=en target/*.jar
 
     - name: Upload FindSecBugs Report
       uses: actions/upload-artifact@v2
