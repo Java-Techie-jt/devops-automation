@@ -30,26 +30,28 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
       
-    - name: Download OWASP Dependency-Check
-      run: |
-       wget -q -O dependency-check-8.4.0-release.zip  https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip
-       ls -l
-       unzip -qq dependency-check-8.4.0-release.zip   
+#    - name: Download OWASP Dependency-Check
+#      run: |
+#       wget -q -O dependency-check-8.4.0-release.zip  https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip
+#       ls -l
+#       unzip -qq dependency-check-8.4.0-release.zip   
 
-    - name: Run OWASP Dependency-Check
-      run: ./dependency-check/bin/dependency-check.sh --scan ./ --format HTML --project "Dependencychecker_DevOpsTest" --out ./report   
+#    - name: Run OWASP Dependency-Check
+#      run: ./dependency-check/bin/dependency-check.sh --scan ./ --format HTML --project "Dependencychecker_DevOpsTest" --out ./report   
    
-    - name: Upload OWASP Dependency-Check Report
-      uses: actions/upload-artifact@v2
-      with:
-        name: dependency-check-report
-        path: ./report
+#    - name: Upload OWASP Dependency-Check Report
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: dependency-check-report
+#        path: ./report
 
     - name: Download FindSecBugs   
-      run: wget -q https://github.com/find-sec-bugs/find-sec-bugs/releases/download/version-1.11.0/findsecbugs-cli.jar    
+      run: |
+       wget -q -O findsecbugs-cli-1.12.0.zip https://github.com/find-sec-bugs/find-sec-bugs/releases/download/version-1.12.0/findsecbugs-cli-1.12.0.zip 
+       unzip -qq findsecbugs-cli-1.12.0.zip
 
     - name: Run FindSecBugs
-      run: java -jar findsecbugs-cli.jar -progress -output findsecbugs-results.html -html -jvmArgs -Xmx2G -Duser.language=en target/*.jar
+      run: ./findsecbugs.sh -progress -output findsecbugs-results.html -html -jvmArgs -Xmx2G -Duser.language=en target/*.jar
 
     - name: Upload FindSecBugs Report
       uses: actions/upload-artifact@v2
