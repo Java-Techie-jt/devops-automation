@@ -1,0 +1,46 @@
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: maven
+            image: maven:alpine
+            command:
+            - cat
+            tty: true
+          - name: docker
+            image: docker:latest
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+             - mountPath: /var/run/docker.sock
+               name: docker-sock
+          volumes:
+          - name: docker-sock
+            hostPath:
+              path: /var/run/docker.sock    
+       '''
+    }
+  }
+  stages {
+    stage('maven') {
+      steps {
+        container('maven') {
+            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sanjeeveejayabalan/devops-automation.git']])
+            sh 'mvn org.cyclonedx:cyclonedx-maven-plugin:makeBom'
+        }
+      } 
+    }    
+    stage('dependencyTrackPublisher') {
+      steps { 
+        withCredentials([string(credentialsId: 'dependencytrackapikey', variable: 'dependencytrackapikey')]) {
+        dependencyTrackPublisher artifact: 'target/bom.xml', projectName: 'dptrack3', projectVersion: '1.3', synchronous: true, projectProperties: [tags: ['10', '20'], swidTagId: 'my swid tag', group: 'dptrack3']
+        }
+      } 
+    } 
+  }
+}

@@ -56,8 +56,14 @@
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
+			<plugin>
+                                <groupId>org.cyclonedx</groupId>
+                                <artifactId>cyclonedx-maven-plugin</artifactId>
+                                <version>2.7.3</version>
+                        </plugin>
 		</plugins>
 		<finalName>devops-integration</finalName>
+		
 	</build>
 
 </project>
